@@ -1,0 +1,1 @@
+Ext.define('Mobile.controller.List', {  extend: 'Ext.app.Controller',  config: {    refs: { 	  listContainer: 'listcontainer'	},    control: {			      listContainer: {		        disclose: 'listdisclose'      }    }  },  listdisclose: function () {    console.log('Disclose Control');  }});
