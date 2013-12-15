@@ -27,7 +27,7 @@ Ext.define('Mobile.view.ListItems', {
       var verifiedDate = currenYear + "-" + currenMonth + "-" + currenDay;
 
       Ext.Cors.request({
-        url: 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/urls',
+        url: 'urls',
         params: {
           pk: record.data.pk,
           url: record.data.url,
@@ -80,7 +80,7 @@ Ext.define('Mobile.view.ListItems', {
       var verifiedDate = currenYear + "-" + currenMonth + "-" + currenDay;
 
       Ext.Cors.request({
-        url: 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/urls',
+        url: 'urls',
         params: {
           pk: urlPk,
           url: currentUrl,

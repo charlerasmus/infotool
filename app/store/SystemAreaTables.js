@@ -12,7 +12,7 @@ Ext.define('Mobile.store.SystemAreaTables', {
         proxy: {
             type: 'ajax',
             //url: 'urls.json'
-            url : 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/systemareatables' +
+            url : 'systemareatables' +
                   '?limitquery=100&order=display_name'
         }
     }

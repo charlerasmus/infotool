@@ -1,7 +1,7 @@
 function changeUrl (system, area) {
 	
   if (system == 'crm') {		 		  		  
-    var storeUrl = 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/crm/' + area;  
+    var storeUrl = 'crm/' + area;  
   }
   else if (system == 'project') {
 	
@@ -15,31 +15,31 @@ function changeUrl (system, area) {
 	  area = 'subtasks';
 	};
 		  
-	var storeUrl = 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/projects/' + area;
+	var storeUrl = 'projects/' + area;
 	
   }
   else {
 		  
 	if ((area == 'countries') ||
 	    (area == 'regions')) {
-	  var storeUrl = 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/locations/' + area;
+	  var storeUrl = 'locations/' + area;
     }
     else if ((area == 'chapters') ||
 	         (area == 'verses')) {
-	  var storeUrl = 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/books/' + area;
+	  var storeUrl = 'books/' + area;
     }
     else if (area == 'categories') {
-	  var storeUrl = 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/codes/' + area;
+	  var storeUrl = 'codes/' + area;
     }	    
 	else {		  
-      var storeUrl = 'http://capetosofia.com/servers/codeigniter/dev/1.0.2/index.php/' + area;
+      var storeUrl = area;
     };
         
   };	
 
-  storeUrl = storeUrl + '&limitquery=40';
+  storeUrl = storeUrl + '?limitquery=40';
   var currentStore = Ext.getStore('Urls');
-console.log (currentStore);
+//console.log (currentStore);
   currentStore.setProxy({
     url: storeUrl
   });
