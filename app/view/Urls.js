@@ -7,7 +7,7 @@ Ext.define('Mobile.view.Urls', {
   config: {
     tabBarPosition: 'bottom',
     items: [{
-      title: 'Home',
+      title: 'Main',
       //iconCls: 'home',
       html: ['No url found!'
       ]
