@@ -29,7 +29,6 @@ Ext.define('Mobile.view.ListItems', {
       Ext.Cors.request({
         url: 'urls',
         params: {
-          pk: record.data.pk,
           url: record.data.url,
           verified_date: verifiedDate,
           verified_user: 'CHARL'
@@ -64,14 +63,10 @@ Ext.define('Mobile.view.ListItems', {
   },
   onItemTap: function(list, index, target, record){
 
-    var listValue = list.target.innerText;
+    var currentUrl = list.target.innerText;
 
 	if ((list.target.style.backgroundColor != 'lightblue') &&
-	    (listValue.length > 0)) {	  
-
-      var divider = listValue.search(' - ');
-      var currentUrl = listValue.substr(0, divider);
-      var urlPk = listValue.substr((divider + 3));	  
+	    (currentUrl.length > 0)) {	  
 
       var currentDate = new Date();
       var currenDay = currentDate.getDate();
@@ -82,7 +77,6 @@ Ext.define('Mobile.view.ListItems', {
       Ext.Cors.request({
         url: 'urls',
         params: {
-          pk: urlPk,
           url: currentUrl,
           verified_date: verifiedDate,
           verified_user: 'CHARL'
