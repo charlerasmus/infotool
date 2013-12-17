@@ -48,27 +48,29 @@ Ext.define('Mobile.view.ListItems', {
   alias: 'widget.listitems',
   id: 'listitems',
   fullscreen: true,  
-  config: {	
+  config: {
     scrollable:'vertical',
     loadingText: 'Loading List Items...',
     emptyText: '<pre> ' +
                ' <div class="notes-list-empty-text">No lists found.</div>' +
                ' <pre/>',
     onItemDisclosure: function (record, list, target) {
-//console.log (record);
-//console.log (list);
-      verifyUrl(record.data.pk, list.innerHtmlElement.dom);
+
+      if (getSystemArea() == 'urls') {
+
+        verifyUrl(record.data.pk, list.innerHtmlElement.dom);
+        
+      };  
       
       var urlPanel = {
         xtype: 'urls'
       };
-//console.log (this);
+
       this.up().up().push(urlPanel);
       this.up().up().items.items[2].items.items[0].setHtml('<iframe src=' + record.data.url + 
                                                            ' width=100% height=800></iframe>');
       //this.up().up().items.items[2].items.items[0].setHtml(loadURL(record.data.url));
-//console.log ('1');
-//console.log(this.up().up().innerItems[1].innerItems[0]);
+
       this.fireEvent('ondisclosuretap', this, record);
     
     },
@@ -90,10 +92,7 @@ Ext.define('Mobile.view.ListItems', {
 
 	  if ((list.target.style.backgroundColor != 'lightblue') &&
 	      (currentUrl.length > 0)) {	  
-//console.log(list.touch.target.nextElementSibling.defaultValue);
-//console.log (list);
-//console.log (index);
-//console.log (record);
+
         verifyUrl(UrlPk, list.touch.target);
 
       };

@@ -39,14 +39,13 @@ function changeUrl (system, area) {
 
   storeUrl = storeUrl + '?limitquery=50&order=create_date desc, url';
   var currentStore = Ext.getStore('Urls');
-//console.log (currentStore);
+
   currentStore.setProxy({
     url: storeUrl
   });
+  
   currentStore.load();
-//console.log (this);
-//console.log (storeUrl);	
-//console.log (currentStore);
+
 };
 
 Ext.define('Ext.data.Cors', {
@@ -94,7 +93,7 @@ Ext.define('Mobile.view.List', {
         label: 'System Area',
         displayField: 'display_name',
         valueField: 'pk',
-        originalValue: 'default urls',
+        value: 'default urls',
         store: Ext.getStore('SystemAreaTables'),
         ui: 'action',
         scope: this,
@@ -131,30 +130,25 @@ Ext.define('Mobile.view.List', {
     onRefreshButtonTap: function () {
 
       var currentStore = Ext.getStore('Urls');
-      currentStore.load();
-      
-      //this.fireEvent('onRefreshButtonTap', this);
+      currentStore.load();      
 
     },
     onVerifyAllButtonTap: function () {
 
-//console.log('onVerifyAllButtonTap');
       this.fireEvent('onVerifyAllButtonTap', this);
 
     },
     onNextButtonTap: function () {
 		
       if (this.items.items[1].selected.length = 0) {
-//console.log (this.items.items[1]);
 	    this.items.items[1].select(1);
 	  }
 	  else {
-//console.log (this.items.items[1]);		  
-	    //this.items.items[1].setActiveItem(this.items.items[1].selected + 1);
+
       };
 
       this.fireEvent('onNextButtonTap', this);
-//console.log (this.items.items[1].selected);
+
     },        
     config: {
       layout: {
