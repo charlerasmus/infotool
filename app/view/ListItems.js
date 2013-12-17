@@ -7,41 +7,58 @@ function loadURL(url) {
     return oRequest.responseText;
 };
 
+function getSystemArea () {
+	
+  var currentStore = Ext.getStore('Urls');
+  var fullUrl = currentStore.getProxy().getUrl();
+  var systemArea = fullUrl.substr(0, fullUrl.indexOf('?'));	
+	
+  return systemArea;
+	
+};	
+
+function verifyUrl (urlPk, list) {
+	
+  var currentDate = new Date();
+  var currenDay = currentDate.getDate();
+  var currenMonth = currentDate.getMonth() + 1;
+  var currenYear = currentDate.getFullYear();
+  var verifiedDate = currenYear + "-" + currenMonth + "-" + currenDay;
+
+  Ext.Cors.request({
+    url: 'urls',
+    params: {
+      pk: urlPk,
+      verified_date: verifiedDate,
+      verified_user: 'CHARL'
+    },
+    method: 'PUT',
+    success: function(response){
+
+      list.style.backgroundColor = 'lightblue';
+          
+    }
+
+  });	
+	
+};	
+
 Ext.define('Mobile.view.ListItems', {
   extend: 'Ext.dataview.List',
   alias: 'widget.listitems',
   id: 'listitems',
   fullscreen: true,  
-  config: {
+  config: {	
     scrollable:'vertical',
     loadingText: 'Loading List Items...',
     emptyText: '<pre> ' +
                ' <div class="notes-list-empty-text">No lists found.</div>' +
                ' <pre/>',
     onItemDisclosure: function (record, list, target) {
-
-      var currentDate = new Date();
-      var currenDay = currentDate.getDate();
-      var currenMonth = currentDate.getMonth() + 1;
-      var currenYear = currentDate.getFullYear();
-      var verifiedDate = currenYear + "-" + currenMonth + "-" + currenDay;
-
-      Ext.Cors.request({
-        url: 'urls',
-        params: {
-          url: record.data.url,
-          verified_date: verifiedDate,
-          verified_user: 'CHARL'
-        },
-        method: 'PUT',
-        success: function(response){
-
-          list.innerHtmlElement.dom.style.backgroundColor = 'lightblue';
-          
-        }
-
-      });
-
+//console.log (record);
+//console.log (list);
+      verifyUrl(record.data.pk, list.innerHtmlElement.dom);
+      
       var urlPanel = {
         xtype: 'urls'
       };
@@ -49,7 +66,7 @@ Ext.define('Mobile.view.ListItems', {
       this.up().up().push(urlPanel);
       this.up().up().items.items[2].items.items[0].setHtml('<iframe src=' + record.data.url + 
                                                            ' width=100% height=800></iframe>');
-      /*this.up().up().items.items[2].items.items[0].setHtml(loadURL(record.data.url));*/
+      //this.up().up().items.items[2].items.items[0].setHtml(loadURL(record.data.url));
 //console.log ('1');
 //console.log(this.up().up().innerItems[1].innerItems[0]);
       this.fireEvent('ondisclosuretap', this, record);
@@ -57,40 +74,32 @@ Ext.define('Mobile.view.ListItems', {
     },
     itemTpl:'<div class="list-item-title">\n\
                <div class="list-item-title-row">\n\
-                 <div class="bl-urls"><span class="list-urls">{display_name}</span></div>\n\
+                 <div class="bl-urls">\n\
+                   <span class="list-urls">{display_name}</span>\n\
+                   <input type="hidden" class="list-urls_pk" value="{pk}">\n\
+                 </div>\n\
                </div>\n\
              </div>'
   },
   onItemTap: function(list, index, target, record){
 
-    var currentUrl = list.target.innerText;
+    if (getSystemArea() == 'urls') {
 
-	if ((list.target.style.backgroundColor != 'lightblue') &&
-	    (currentUrl.length > 0)) {	  
+      var currentUrl = list.target.innerText;
+      var UrlPk = list.touch.target.nextElementSibling.defaultValue;
 
-      var currentDate = new Date();
-      var currenDay = currentDate.getDate();
-      var currenMonth = currentDate.getMonth() + 1;
-      var currenYear = currentDate.getFullYear();
-      var verifiedDate = currenYear + "-" + currenMonth + "-" + currenDay;
+	  if ((list.target.style.backgroundColor != 'lightblue') &&
+	      (currentUrl.length > 0)) {	  
+//console.log(list.touch.target.nextElementSibling.defaultValue);
+//console.log (list);
+//console.log (index);
+//console.log (record);
+        verifyUrl(UrlPk, list.touch.target);
 
-      Ext.Cors.request({
-        url: 'urls',
-        params: {
-          url: currentUrl,
-          verified_date: verifiedDate,
-          verified_user: 'CHARL'
-        },
-        method: 'PUT',
-        success: function(response){
-
-          list.target.style.backgroundColor = 'lightblue';
-          
-        }
-
-      });
+      };
 
     };
-
+    
   }
+    
 });

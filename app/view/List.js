@@ -37,7 +37,7 @@ function changeUrl (system, area) {
         
   };	
 
-  storeUrl = storeUrl + '?limitquery=40';
+  storeUrl = storeUrl + '?limitquery=50&order=create_date desc, url';
   var currentStore = Ext.getStore('Urls');
 //console.log (currentStore);
   currentStore.setProxy({
@@ -46,7 +46,7 @@ function changeUrl (system, area) {
   currentStore.load();
 //console.log (this);
 //console.log (storeUrl);	
-console.log (currentStore);
+//console.log (currentStore);
 };
 
 Ext.define('Ext.data.Cors', {
@@ -123,9 +123,9 @@ Ext.define('Mobile.view.List', {
       };
 
       this.add([topToolbar, listItems]);
-      changeUrl ('default', 'urls');
-            
       this.callParent();    
+
+      changeUrl ('default', 'urls');
             
     },
     onRefreshButtonTap: function () {
@@ -138,7 +138,7 @@ Ext.define('Mobile.view.List', {
     },
     onVerifyAllButtonTap: function () {
 
-      console.log('onVerifyAllButtonTap');
+//console.log('onVerifyAllButtonTap');
       this.fireEvent('onVerifyAllButtonTap', this);
 
     },
